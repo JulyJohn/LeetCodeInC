@@ -24,7 +24,14 @@ struct TreeNode {
  * 遍历二叉树
  * */
 void printTree(TreeNode *root) {
+
     if (root == NULL) {
+        cout << "null, "; // 先序遍历
+        return;
+    }
+
+    if(root->left == NULL && root->right == NULL){
+        cout << root->val << ", "; // 先序遍历
         return;
     }
 //    cout << root->val << ", "; // 先序遍历
@@ -57,7 +64,11 @@ void creatTree(TreeNode *&root, vector<Dtype> arr, int len, int idx) {
     if (idx > len - 1) {
         return;
     }
-    root = new TreeNode(arr[idx]);
+    if (arr[idx] == NULL) {
+        root = NULL;
+    } else {
+        root = new TreeNode(arr[idx]);
+    }
     if (arr[idx] != NULL) {
         creatTree(root->left, arr, len, 2 * idx + 1);
         creatTree(root->right, arr, len, 2 * idx + 2);
