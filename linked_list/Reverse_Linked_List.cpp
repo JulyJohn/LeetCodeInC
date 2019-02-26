@@ -40,12 +40,12 @@ public:
         ListNode *cur = head;
         ListNode *next = cur->next;
         while (next != NULL) {
-            head->next = next->next;
-            next->next = cur;
-            cur = next;
-            next = head->next;
+            cur->next = next->next;
+            next->next = head;
+            head = next;
+            next = cur->next;
         }
-        return cur;
+        return head;
     }
 
     /**
