@@ -37,13 +37,12 @@ public:
         if (head == NULL) {
             return NULL;
         }
-        ListNode *cur = head;
-        ListNode *next = cur->next;
-        while (next != NULL) {
-            cur->next = next->next;
-            next->next = head;
-            head = next;
-            next = cur->next;
+        ListNode *tail = head;
+        while(tail->next != NULL){
+            ListNode *tmp = tail->next;
+            tail->next = tail->next->next;
+            tmp->next = head;
+            head = tmp;
         }
         return head;
     }
