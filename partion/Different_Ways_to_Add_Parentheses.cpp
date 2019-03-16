@@ -45,7 +45,7 @@ public:
         for (int i = 0; i < n; ++i) {
             char c = input[i];
             if (c == '+' || c == '-' || c == '*') {
-                vector<int> res_l = diffWaysToCompute(input.substr(0, i - 1)); // substr(pos, num)
+                vector<int> res_l = diffWaysToCompute(input.substr(0, i)); // substr(pos, num)
                 vector<int> res_r = diffWaysToCompute(input.substr(i + 1));
                 for (int l = 0; l < res_l.size(); ++l) {
                     for (int r = 0; r < res_r.size(); ++r) {
@@ -66,3 +66,10 @@ public:
         return res;
     }
 };
+
+int main() {
+    Solution *solution = new Solution();
+    string s = "2*3-4*5";
+    vector<int > res = solution->diffWaysToCompute(s);
+    return 0;
+}
