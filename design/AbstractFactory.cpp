@@ -12,68 +12,97 @@
 
 using namespace std;
 
-class Product {
+class Product{
 public:
     virtual ~Product() {};
 
     virtual void operation() = 0;
 };
 
-class ProductA : public Product {
+class Product1 : public Product {
+public:
+    virtual void operation() = 0;
+};
+
+class Product1A : public Product1 {
 public:
     void operation() {
-        cout << "product A created!" << endl;
+        cout << "product 1A created!" << endl;
     }
 };
 
-class ProductB : public Product {
+class Product1B : public Product1 {
 public:
     void operation() {
-        cout << "product B created!" << endl;
+        cout << "product 1B created!" << endl;
+    }
+};
+
+class Product2 : public Product{
+public:
+    virtual void operation() = 0;
+};
+
+class Product2A : public Product2 {
+public:
+    void operation() {
+        cout << "product 2A created!" << endl;
+    }
+};
+
+
+class Product2B : public Product2{
+public:
+    void operation(){
+        cout << "product 2B created!" <<endl;
     }
 };
 
 class Factory {
 public:
-    virtual ProductA *produceA() = 0;
+    virtual Product *produce1() = 0;
 
-    virtual ProductB *produceB() = 0;
+    virtual Product *produce2() = 0;
 
     virtual ~Factory() {};
 };
 
+// Factory1生产两种不同的A
 class FactoryA : public Factory {
 public:
-    ProductA *produceA() {
-        return new ProductA();
+    Product *produce1() {
+        return new Product1A();
     };
 
-    ProductB *produceB() {
-        return new ProductB();
+    Product *produce2() {
+        return new Product2A();
     };
 };
 
+// Factory1生产两种不同的B
 class FactoryB : public Factory {
 public:
-    ProductA *produceA() {
-        return new ProductA();
+    Product *produce1() {
+        return new Product1B();
     };
 
-    ProductB *produceB() {
-        return new ProductB();
+    Product *produce2() {
+        return new Product2B();
     };
 };
 
 int main() {
     FactoryA *factoryA = new FactoryA();
     FactoryB *factoryB = new FactoryB();
-    ProductA *pa1 = factoryA->produceA();
-    ProductB *pb1 = factoryA->produceB();
-    ProductA *pa2 = factoryB->produceA();
-    ProductB *pb2 = factoryB->produceB();
+    Product *pa1 = factoryA->produce1();
+    Product *pa2 = factoryA->produce2();
+    Product *pb1 = factoryB->produce1();
+    Product *pb2 = factoryB->produce2();
 
+    cout << "factoryA is running!" << endl;
     pa1->operation();
     pa2->operation();
+    cout << "factoryB is running!" << endl;
     pb1->operation();
     pb2->operation();
 
