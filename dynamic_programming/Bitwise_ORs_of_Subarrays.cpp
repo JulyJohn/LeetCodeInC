@@ -55,56 +55,42 @@ typedef int Dtype;
 
 class Solution {
 public:
-
+    // 用一个set来保存上一次的结果状态，这样就可以减少重复比较的情况，时间复杂度为o(32n)
+    int subarrayBitwiseORs(vector<int>& A) {
+        unordered_set<int> prev;
+        unordered_set<int> cur;
+        unordered_set<int> res;
+        for(int a : A){
+            cur = {a};
+            for(int cur_item : prev){
+                cur.insert(a | cur_item);
+            }
+            prev = cur;
+            for(int cur_item : cur){
+                res.insert(cur_item);
+            }
+        }
+        return res.size();
+    }
     /**
      * 基本思路：
         dp[i][j] := A[i] | A[i + 1] | … | A[j]
         dp[i][j] = dp[i][j – 1] | A[j]
         ans = len(set(dp))
      * */
-
-    int subarrayBitwiseORs(vector<int> &A) {
-        unordered_set<int> res, cur, cur2;
-        for (int i: A) {
-            cur2 = {i};
-            for (int j: cur) {
-                cur2.insert(i | j);
-            }
-            cur = cur2;
-            for (int j: cur) {
-                res.insert(j);
-            }
-        }
-        return res.size();
-    }
-
     // 直接用dp会TLE
-    int subarrayBitwiseORs1(vector<int> &A) {
-        const unsigned long n = A.size();
-        vector<vector<int>> dp(n, vector<int>(n));
-        unordered_set<int> ans(begin(A), end(A));
-        for (int l = 1; l <= n; ++l) { // 与当前元素的距离
-            for (int i = 0; i <= n - l; ++i) { // 遍历A中元素， 到n-l为止
-                int j = i + l - 1;
-                if (l == 1) { // 1表示当前元素本身
-                    dp[i][j] = A[i];
-                    continue;
-                }
-                dp[i][j] = dp[i][j - 1] | A[j];
-                ans.insert(dp[i][j]);
-            }
-        }
-
-        // 上述过程可以简化成如下形式：
-//        vector<int> dp(A); // 距离为1的情况实际上就是A本身
-//        unordered_set<int> ans(begin(A), end(A));
-//        for (int l = 1; l <= n; ++l) { // 从距离为2的情况开始
-//            for (int i = 0; i <= n - l; ++i) {
-//                ans.insert(dp[i] |= A[i + l - 1]);
-//            }
-//        }
-
-        return ans.size();
+     int subarrayBitwiseORs(vector<int>& A) {
+         int n = A.size();
+         vector<vector<int > > dp(n+1, vector<int >(n+1, 0));
+         unordered_set<int > res;
+         for(int i = 1; i <= n; ++i){
+             for(int j = i; j <= n; ++j){
+                 dp[i][j] = dp[i][j-1] | A[j-1];
+                 res.emplace(dp[i][j]);
+             }
+         }
+         return res.size();
+     }
     }
 };
 

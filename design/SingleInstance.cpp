@@ -20,8 +20,8 @@ using namespace std;
 
 //#define DEMO
 //#define CLASSIC
-//#define HUNGRY
-#define LAZY
+#define HUNGRY
+//#define LAZY
 
 #ifdef CLASSIC
 
