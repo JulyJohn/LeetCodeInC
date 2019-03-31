@@ -9,6 +9,13 @@
  * https://www.cnblogs.com/alwayswangzi/p/7138154.html
  * http://chestnutheng.cn/2017/04/07/cpp-threadpool/
  * */
+
+#define MY
+//#define chestnutheng
+
+
+#ifdef MY
+
 #include <iostream>
 #include <thread>
 #include <unistd.h>
@@ -20,21 +27,21 @@ using namespace std;
 
 class Task {
 private:
-    int run_time;
-    int idx;
+    int _run_time;
+    int _idx;
 public:
-    Task(int n) {
-        run_time = n % 10;
-        idx = n;
+    Task(int idx, int run_time) {
+        _run_time = run_time;
+        _idx = idx;
     }
 
     virtual void run() {
-        sleep(run_time);
-        cout << "task " << idx << " has been run " << run_time << "s";
+        sleep(_run_time);
+        cout << "task " << _idx << " has been run " << _run_time << "s" << endl;
     }
 
     int getIdx() {
-        return idx;
+        return _idx;
     }
 };
 
@@ -95,6 +102,8 @@ public:
         while (--n >= 0) {
             _pool.push_back(new Thread());
         }
+        std::thread main_thread(&ThreadPool::run, this);
+        main_thread.detach();
     }
 
     // 线程池中的任务执行完毕的时候销毁线程
@@ -102,12 +111,13 @@ public:
         for (int i = 0; i < _pool.size(); ++i) {
             delete _pool[i];
         }
+        cout << "thread pool has destroyed! " << endl;
     }
 
     // 向任务队列中添加任务
     void addTask(Task *t) {
         _locker.lock();
-        task_queue.emplace(t);
+        task_queue.push(t);
         _locker.unlock();
     }
 
@@ -131,18 +141,20 @@ public:
 };
 
 int main() {
-    int N = 100;
+    int N = 10;
     ThreadPool tp(4);
 
-    for (int i = 0; i < N; ++i) {
-        tp.addTask(new Task(i));
+    for (int i = 1; i <= N; ++i) {
+//        Task t(i);
+//        tp.addTask(&t);
+        tp.addTask(new Task(i, i % 2 ? i : N - i));
     }
 
-    sleep(N);
+    sleep(N * 2);
     return 0;
 }
 
-
+#endif
 //#define chestnutheng
 
 #ifdef chestnutheng

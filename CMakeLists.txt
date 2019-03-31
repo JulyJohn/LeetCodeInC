@@ -64,7 +64,7 @@ endif ()
 #add_executable(Maximum_Length_of_Pair_Chain dynamic_programming/Maximum_Length_of_Pair_Chain.cpp)
 #add_executable(MaxSubMatrix dynamic_programming/MaxSubMatrix.cpp)
 #add_executable(Longest_Palindromic_Subsequence dynamic_programming/Longest_Palindromic_Subsequence.cpp)
-add_executable(Maximum_sum_alternating_subsequence dynamic_programming/Maximum_sum_alternating_subsequence.cpp)
+#add_executable(Maximum_sum_alternating_subsequence dynamic_programming/Maximum_sum_alternating_subsequence.cpp)
 
 # binary_search
 #add_executable(PowerOfDouble sword_offer/PowerOfDouble.cpp)
@@ -100,6 +100,7 @@ add_executable(Maximum_sum_alternating_subsequence dynamic_programming/Maximum_s
 #add_executable(Build_Bin_Tree_From_Iterator sword_offer/Build_Bin_Tree_From_Iterator.cpp)
 #add_executable(Next_Node_In_Bin_Tree sword_offer/Next_Node_In_Bin_Tree.cpp)
 #add_executable(Fibonacci sword_offer/Fibonacci.cpp)
+add_executable(Full_Tree_Is_BinSearch_Tree tree/Full_Tree_Is_BinSearch_Tree.cpp)
 
 # design
 #add_executable(SingleInstance design/SingleInstance.cpp)
@@ -124,6 +125,7 @@ add_executable(Maximum_sum_alternating_subsequence dynamic_programming/Maximum_s
 
 # bit_manipulation
 #add_executable(Two_Unduplicate_Numbers_in_Array bit_manipulation/Two_Unduplicate_Numbers_in_Array.cpp)
+#add_executable(Number_Of_1 bit_manipulation/Number_Of_1.cpp)
 
 # exam
 #add_executable(360_Test_IO exam/360_Test_IO.cpp)
@@ -133,3 +135,4 @@ add_executable(Maximum_sum_alternating_subsequence dynamic_programming/Maximum_s
 #add_executable(Move_Zero_To_Tail other/Move_Zero_To_Tail.cpp)
 #add_executable(maxDiffSubArrays other/maxDiffSubArrays.cpp)
 #add_executable(Reverse_Sentence matrix/Reverse_Sentence.cpp)
+#add_executable(Robot_Move sword_offer/Robot_Move.cpp)

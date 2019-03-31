@@ -58,7 +58,7 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  * */
 #include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -69,7 +69,7 @@ public:
         if(s.length() == 0){
             return 0;
         }
-        map<char, int> lookup_table;
+        unordered_map<char, int> lookup_table;
         lookup_table.insert({'I', 1});
         lookup_table.insert({'V', 5});
         lookup_table.insert({'X', 10});
