@@ -50,6 +50,8 @@ namespace leetcode {
     void standard_leetcode_array(vector<Dtype> &arr);
 
     void creatTree(TreeNode *&root, vector<Dtype> arr, int len, int idx);
+
+    TreeNode* stringToTreeNode(string input);
 }
 
 
