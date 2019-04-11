@@ -53,9 +53,7 @@ namespace leetcode {
                 }
             }
             if (min_idx != i) {
-                int tmp = a[i];
-                a[i] = a[min_idx];
-                a[min_idx] = tmp;
+                swap(a[min_idx], a[i]);
             }
         }
     }
@@ -73,9 +71,7 @@ namespace leetcode {
         for (int i = 0; i < n; ++i) {
             for (int j = 1; j < n - i; ++j) {
                 if (a[j] < a[j - 1]) {
-                    int tmp = a[j];
-                    a[j] = a[j - 1];
-                    a[j - 1] = tmp;
+                    swap(a[j], a[j-1]);
                 }
             }
         }
@@ -94,9 +90,7 @@ namespace leetcode {
             bool has_changed = false;
             for (int j = 1; j < n - i; ++j) {
                 if (a[j] < a[j - 1]) {
-                    int tmp = a[j];
-                    a[j] = a[j - 1];
-                    a[j - 1] = tmp;
+                    swap(a[j], a[j-1]);
                     has_changed = true;
                 }
             }
@@ -118,9 +112,7 @@ namespace leetcode {
             int pos = 0;
             for (int j = 1; j < end_idx; ++j) {
                 if (a[j] < a[j - 1]) {
-                    int tmp = a[j];
-                    a[j] = a[j - 1];
-                    a[j - 1] = tmp;
+                    swap(a[j], a[j-1]);
                     pos = j;
                     has_changed = true;
                 }
@@ -219,14 +211,13 @@ namespace leetcode {
         }
         int lt = lo;
         int gt = hi + 1;
-        int base = a[lo];
         while (1) {
-            while (a[++lt] < base) {
+            while (a[++lt] < a[lo]) {
                 if (lt == hi) {
                     break;
                 }
             }
-            while (a[--gt] > base) {
+            while (a[--gt] > a[lo]) {
                 if (gt == lo) {
                     break;
                 }
@@ -234,13 +225,10 @@ namespace leetcode {
             if (lt >= gt) {
                 break;
             }
-            int tmp = a[lt];
-            a[lt] = a[gt];
-            a[gt] = tmp;
+            swap(a[lt], a[gt]);
         }
         // 最终交换时，满足a[gt]<=base，故而将a[gt]与base交换
-        a[lo] = a[gt];
-        a[gt] = base;
+        swap(a[lo], a[gt]);
         quick_sort_partion2(a, lo, gt - 1);
         quick_sort_partion2(a, gt + 1, hi);
     }
@@ -250,20 +238,14 @@ namespace leetcode {
         if (lo >= hi) {
             return;
         }
-        int base = a[lo];
         int lt = lo;
         int i = lo + 1;
         int gt = hi;
         while (i <= gt) {
-            if (a[i] < base) {
-                int tmp = a[lt];
-                a[lt++] = a[i];
-                a[i++] = tmp;
-            } else if (a[i] > base) {
-                int tmp = a[i];
-                a[i] = a[gt];
-                a[gt] = tmp;
-                gt--;
+            if (a[i] < a[lo]) {
+                swap(a[i++], a[lt++]);
+            } else if (a[i] > a[lo]) {
+                swap(a[i], a[gt--]);
             } else {
                 i++;
             }
@@ -297,17 +279,14 @@ namespace leetcode {
      *
      * */
     void adjust_heap(vector<int> &a, int lo, int hi) {
-        int cur = lo;
-        int next = lo * 2 + 1;
-        int tmp;
-        for (tmp = a[cur]; next <= hi; cur = next, next = next * 2 + 1) {
+
+        for (int cur = lo, next = lo * 2 + 1; next <= hi; cur = next, next = next * 2 + 1) {
             //先比较两个子节点的大小，取较大者与当前节点比较
             if (next < hi && a[next] < a[next + 1]) {
                 next++;
             }
-            if (tmp < a[next]) {
-                a[cur] = a[next];
-                a[next] = tmp;
+            if (a[cur] < a[next]) {
+                swap(a[cur], a[next]);
             } else {
                 break;
             }
@@ -322,9 +301,7 @@ namespace leetcode {
 
         // 堆顶元素即为最大值，将其移到数组的末尾，然后再调整堆使之维持最大堆的状态
         for (int i = n - 1; i >= 0; --i) {
-            int tmp = a[0];
-            a[0] = a[i];
-            a[i] = tmp;
+            swap(a[0], a[i]);
             adjust_heap(a, 0, i - 1);
         }
     }
@@ -443,7 +420,7 @@ namespace leetcode {
         int bucket_nums = 10;
         int bucket_size =
                 (max - min + 1) % bucket_nums ? (max - min + 1) / bucket_nums + 1 : (max - min + 1) / bucket_nums;
-        vector<vector<int>> bucket(bucket_nums);
+        vector <vector<int>> bucket(bucket_nums);
 
         // 将a中元素分别放入到位置合适的桶中
         for (int i = 0; i < n; ++i) {
