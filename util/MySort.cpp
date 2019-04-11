@@ -71,7 +71,7 @@ namespace leetcode {
         for (int i = 0; i < n; ++i) {
             for (int j = 1; j < n - i; ++j) {
                 if (a[j] < a[j - 1]) {
-                    swap(a[j], a[j-1]);
+                    swap(a[j], a[j - 1]);
                 }
             }
         }
@@ -90,7 +90,7 @@ namespace leetcode {
             bool has_changed = false;
             for (int j = 1; j < n - i; ++j) {
                 if (a[j] < a[j - 1]) {
-                    swap(a[j], a[j-1]);
+                    swap(a[j], a[j - 1]);
                     has_changed = true;
                 }
             }
@@ -112,7 +112,7 @@ namespace leetcode {
             int pos = 0;
             for (int j = 1; j < end_idx; ++j) {
                 if (a[j] < a[j - 1]) {
-                    swap(a[j], a[j-1]);
+                    swap(a[j], a[j - 1]);
                     pos = j;
                     has_changed = true;
                 }
@@ -241,10 +241,11 @@ namespace leetcode {
         int lt = lo;
         int i = lo + 1;
         int gt = hi;
+        int base = a[lo];
         while (i <= gt) {
-            if (a[i] < a[lo]) {
+            if (a[i] < base) {
                 swap(a[i++], a[lt++]);
-            } else if (a[i] > a[lo]) {
+            } else if (a[i] > base) {
                 swap(a[i], a[gt--]);
             } else {
                 i++;
@@ -420,7 +421,7 @@ namespace leetcode {
         int bucket_nums = 10;
         int bucket_size =
                 (max - min + 1) % bucket_nums ? (max - min + 1) / bucket_nums + 1 : (max - min + 1) / bucket_nums;
-        vector <vector<int>> bucket(bucket_nums);
+        vector<vector<int>> bucket(bucket_nums);
 
         // 将a中元素分别放入到位置合适的桶中
         for (int i = 0; i < n; ++i) {
