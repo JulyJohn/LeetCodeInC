@@ -74,6 +74,33 @@ public:
         }
         return true;
     }
+
+    bool isPalindrome_2(ListNode* pHead) {
+        // write code here
+        if(!pHead){
+            return false;
+        }
+        ListNode* slow = pHead;
+        ListNode* fast = pHead;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        stack<int> s;
+        while(slow){
+            s.push(slow->val);
+            slow = slow->next;
+        }
+        slow = pHead;
+        while(!s.empty()){
+            if(s.top() != slow->val){
+                return false;
+            }
+            s.pop();
+            slow = slow->next;
+        }
+        return true;
+    }
 };
 
 
