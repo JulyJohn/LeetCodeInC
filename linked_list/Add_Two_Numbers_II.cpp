@@ -72,6 +72,28 @@ public:
         }
         return res->next;
     }
+
+    ListNode* addTwoNumbers_2(ListNode* a, ListNode* b) {
+        // write code here
+        ListNode* res = new ListNode(-1);
+        int carry = 0;
+        ListNode* cur = res;
+        while(a && b){
+            int val = carry + a->val + b->val;
+            cur->next = new ListNode(val % 10);
+            carry = val / 10;
+            a = a->next;
+            b = b->next;
+            cur = cur->next;
+        }
+        cur->next = a ? a : b;
+        if(cur->next){
+            cur->next->val += carry;
+        }else if(carry != 0){
+            cur->next = new ListNode(carry);
+        }
+        return res->next;
+    }
 };
 
 
